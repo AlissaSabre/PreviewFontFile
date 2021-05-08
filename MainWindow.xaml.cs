@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace PreviewFont
 {
@@ -23,6 +24,22 @@ namespace PreviewFont
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void fontButton_Click(object sender, RoutedEventArgs e)
+        {
+            var dlg = new OpenFileDialog()
+            {
+                CheckFileExists = true,
+                CheckPathExists = true,
+                DefaultExt = ".ttf",
+                Filter = "Font file|*.ttf;*.otf",
+            };
+            if (dlg.ShowDialog(this) == true)
+            {
+                fontTextBlock.Text = dlg.FileName;
+                sampleGlyphs.FontUri = new Uri(dlg.FileName);
+            }
         }
     }
 }
