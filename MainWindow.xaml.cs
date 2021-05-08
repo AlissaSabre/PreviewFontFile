@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,12 +35,37 @@ namespace PreviewFontFile
                 CheckFileExists = true,
                 CheckPathExists = true,
                 DefaultExt = ".ttf",
-                Filter = "Font file|*.ttf;*.otf",
+                Filter = "Font file|*.ttf;*.ttc;*.otf",
             };
             if (dlg.ShowDialog(this) == true)
             {
                 fontTextBlock.Text = dlg.FileName;
                 sampleGlyphs.FontUri = new Uri(dlg.FileName);
+                infoTextBox.Text = GetFontInformationTexts(dlg.FileName);
+            }
+        }
+
+        private string GetFontInformationTexts(string filename)
+        {
+            var f = FontInfo.From(filename , CultureInfo.CurrentUICulture);
+            var sb = new StringBuilder();
+            sb.AppendLine($"Contains {f.GlyphCount} glyphs");
+            sb.AppendLine(PossiblyLocalizedName(f.FamilyName, f.LocalizedFamilyName));
+            sb.AppendLine(PossiblyLocalizedName(f.FaceName, f.LocalizedFaceName));
+            sb.AppendLine(PossiblyLocalizedName(f.ManufacturerName, f.LocalizedManufacturerName));
+            sb.AppendLine(f.LocalizedCopyright ?? f.Copyright);
+            return sb.ToString();
+        }
+
+        private string PossiblyLocalizedName(string invariant, string localized)
+        {
+            if (localized is null || localized == invariant)
+            {
+                return invariant;
+            }
+            else
+            {
+                return invariant + " (" + localized + ")";
             }
         }
     }

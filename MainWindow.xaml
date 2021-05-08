@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PreviewFontFile"
         mc:Ignorable="d"
-        Title="Preview a font file" Height="450" Width="800">
+        Title="Preview a font file" Height="400" Width="800">
     <Grid>
         <Button Margin="10,10,10,0" Height="24" VerticalAlignment="Top" Background="{x:Null}" Click="fontButton_Click"/>
         <TextBlock Name="fontTextBlock" Margin="14,14,14,0" VerticalAlignment="Top" TextWrapping="NoWrap" IsHitTestVisible="False" Text="(Choose a font file here...)"/>
-        <TextBox Name="sampleTextBox" Margin="10 40 10 0" Height="20"  VerticalAlignment="Top" TextWrapping="NoWrap" Text="Sample Text"/>
-        <TextBlock Name="infoTextBox" Margin="10 72 10 0" Height="52" VerticalAlignment="Top"/>
-        <Glyphs Name="sampleGlyphs" FontRenderingEmSize="100" Fill="Black" Margin="20,132,20,0"
+        <TextBox Name="sampleTextBox" Margin="10,40,10,0" Height="24"  VerticalAlignment="Top" VerticalContentAlignment="Center" TextWrapping="NoWrap" BorderBrush="Black" Text="Sample Text"/>
+        <Glyphs Name="sampleGlyphs" FontRenderingEmSize="100" Fill="Black" Margin="20,72,20,142"
           UnicodeString="{Binding ElementName=sampleTextBox, Path=Text, Mode=OneWay, Converter={x:Static local:NonEmptyString.Instance}}"/>
+        <TextBox Name="infoTextBox" Margin="10,0,10,10" Height="120" VerticalAlignment="Bottom" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True"/>
     </Grid>
 </Window>
