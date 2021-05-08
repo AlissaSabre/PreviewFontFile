@@ -3,6 +3,8 @@ PreviewFontFile
 
 A small tool to preview a font file
 
+![Screenshot of PreviewFontFile](screenshot.jpg)
+
 What is it?
 -----------
 
