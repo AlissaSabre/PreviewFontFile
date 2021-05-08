@@ -11,6 +11,7 @@
         <TextBlock Name="fontTextBlock" Margin="14,14,14,0" VerticalAlignment="Top" TextWrapping="NoWrap" IsHitTestVisible="False" Text="(Choose a font file here...)"/>
         <TextBox Name="sampleTextBox" Margin="10 40 10 0" Height="20"  VerticalAlignment="Top" TextWrapping="NoWrap" Text="Sample Text"/>
         <TextBlock Name="infoTextBox" Margin="10 72 10 0" Height="52" VerticalAlignment="Top"/>
-        <Glyphs Name="sampleGlyphs" FontRenderingEmSize="100" Fill="Black" Margin="20,132,20,0" UnicodeString="{Binding ElementName=sampleTextBox, Path=Text, Mode=OneWay}" />
+        <Glyphs Name="sampleGlyphs" FontRenderingEmSize="100" Fill="Black" Margin="20,132,20,0"
+          UnicodeString="{Binding ElementName=sampleTextBox, Path=Text, Mode=OneWay, Converter={x:Static local:NonEmptyString.Instance}}"/>
     </Grid>
 </Window>

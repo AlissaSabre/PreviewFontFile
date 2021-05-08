@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,6 +41,40 @@ namespace PreviewFontFile
                 fontTextBlock.Text = dlg.FileName;
                 sampleGlyphs.FontUri = new Uri(dlg.FileName);
             }
+        }
+    }
+
+    /// <summary>Turns an empty string into a single space.</summary>
+    /// <remarks>
+    /// <see cref="Glyphs"/> doesn't want its <see cref="Glyphs.UnicodeString"/> to be empty.
+    /// This converter guarantees non-empty strings.
+    /// </remarks>
+    [ValueConversion(typeof(string), typeof(string))]
+    public class NonEmptyString : IValueConverter
+    {
+        /// <summary>A stock instance of <see cref="NonEmptyString"/>.</summary>
+        public static readonly NonEmptyString Instance = new NonEmptyString();
+
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            var s = value as string;
+            if (s is null)
+            {
+                return DependencyProperty.UnsetValue;
+            }
+            else if (string.IsNullOrWhiteSpace(s))
+            {
+                return " ";
+            }
+            else
+            {
+                return s;
+            }
+        }
+
+        public object ConvertBack (object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException($"{nameof(NonEmptyString)} doesn't provide ConvertBack");
         }
     }
 }
